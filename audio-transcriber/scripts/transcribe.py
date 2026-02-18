@@ -1,16 +1,25 @@
-#!/usr/bin/env python3
+#!/usr/bin/env -S uv run --script
+# /// script
+# requires-python = ">=3.9"
+# dependencies = [
+#   "dashscope",
+# ]
+# [tool.uv]
+# exclude-newer = "2025-02-18T00:00:00Z"
+# ///
 """
 Qwen Audio Transcriber
 
 Transcribe audio files to text using DashScope Qwen ASR API.
 
 Usage:
-    python3 transcribe.py <audio_path> [--language <lang>]
+    uv run transcribe.py <audio_path> [--language <lang>]
+    ./transcribe.py <audio_path> [--language <lang>]  (if executable)
 
 Examples:
-    python3 transcribe.py recording.mp3
-    python3 transcribe.py meeting.mp3 --language zh
-    python3 transcribe.py podcast.mp3 --language en
+    uv run transcribe.py recording.mp3
+    uv run transcribe.py meeting.mp3 --language zh
+    uv run transcribe.py podcast.mp3 --language en
 
 Environment:
     DASHSCOPE_API_KEY - Required. Your DashScope API key.
@@ -22,6 +31,9 @@ import os
 import base64
 import argparse
 from pathlib import Path
+import dashscope
+from dashscope import MultiModalConversation
+from http import HTTPStatus
 
 
 def audio_to_base64(audio_path):
@@ -63,10 +75,6 @@ def transcribe_audio(audio_path, language=None, model="qwen3-asr-flash"):
     Returns:
         Transcription text
     """
-    import dashscope
-    from dashscope import MultiModalConversation
-    from http import HTTPStatus
-    
     # Convert audio to base64
     audio_base64 = audio_to_base64(audio_path)
     
@@ -126,14 +134,6 @@ def main():
         print("Error: DASHSCOPE_API_KEY environment variable not set.", file=sys.stderr)
         print("Please set your DashScope API key:", file=sys.stderr)
         print("  export DASHSCOPE_API_KEY='your-api-key-here'", file=sys.stderr)
-        sys.exit(1)
-    
-    # Check for dashscope library
-    try:
-        import dashscope
-    except ImportError:
-        print("Error: dashscope library not installed.", file=sys.stderr)
-        print("Install with: pip install dashscope", file=sys.stderr)
         sys.exit(1)
     
     # Get model from environment or use default

@@ -2,7 +2,7 @@
 name: qwen-audio-transcriber
 description: Transcribe audio files to text using Qwen ASR model via DashScope API. Supports various audio formats for speech-to-text conversion.
 metadata:
-  { "openclaw": { "emoji": "🎤", "requires": { "env": ["DASHSCOPE_API_KEY"], "bins": ["python3"] }, "install": [{ "id": "pip", "kind": "pip", "package": "dashscope", "label": "Install dashscope library" }] } }
+  { "openclaw": { "emoji": "🎤", "requires": { "env": ["DASHSCOPE_API_KEY"], "bins": ["uv"] } }
 ---
 
 # Qwen Audio Transcriber
@@ -14,14 +14,34 @@ Transcribe audio files to text using Qwen's speech recognition capabilities via 
 Transcribe an audio file:
 
 ```bash
-python3 scripts/transcribe.py /path/to/audio.mp3
+uv run scripts/transcribe.py /path/to/audio.mp3
 ```
 
 With custom language hint:
 
 ```bash
-python3 scripts/transcribe.py /path/to/audio.mp3 --language zh
+uv run scripts/transcribe.py /path/to/audio.mp3 --language zh
 ```
+
+Or make it executable:
+
+```bash
+chmod +x scripts/transcribe.py
+./scripts/transcribe.py /path/to/audio.mp3 --language zh
+```
+
+## Prerequisites
+
+1. Install `uv` (if not already installed):
+   ```bash
+   curl -LsSf https://astral.sh/uv/install.sh | sh
+   # Or via Homebrew: brew install uv
+   ```
+
+2. Set your DashScope API key:
+   ```bash
+   export DASHSCOPE_API_KEY='your-api-key-here'
+   ```
 
 ## How It Works
 
@@ -29,6 +49,8 @@ python3 scripts/transcribe.py /path/to/audio.mp3 --language zh
 2. Reads and base64-encodes the audio
 3. Sends to DashScope Qwen ASR API
 4. Returns the transcription text
+
+Uses PEP 723 inline script metadata — `uv` automatically manages the virtual environment and dependencies.
 
 ## Configuration
 
@@ -52,24 +74,25 @@ Requires `DASHSCOPE_API_KEY` environment variable. Set it in your shell or OpenC
 ## Script Reference
 
 - `scripts/transcribe.py` - Main transcription script
-  - Usage: `python3 scripts/transcribe.py <audio_path> [--language <lang>]`
+  - Usage: `uv run scripts/transcribe.py <audio_path> [--language <lang>]` or `./scripts/transcribe.py <audio_path> [--language <lang>]`
   - Returns: Transcribed text
+  - Lock file: `scripts/transcribe.py.lock` (committed for reproducibility)
 
 ## Example Usage
 
 ### Transcribe Chinese audio
 ```bash
-python3 scripts/transcribe.py meeting.mp3 --language zh
+uv run scripts/transcribe.py meeting.mp3 --language zh
 ```
 
 ### Transcribe English audio
 ```bash
-python3 scripts/transcribe.py podcast.mp3 --language en
+uv run scripts/transcribe.py podcast.mp3 --language en
 ```
 
 ### Auto-detect language
 ```bash
-python3 scripts/transcribe.py recording.mp3
+uv run scripts/transcribe.py recording.mp3
 ```
 
 ## Notes
@@ -78,6 +101,7 @@ python3 scripts/transcribe.py recording.mp3
 - Supports MP3, WAV, M4A, OGG, OPUS formats
 - Maximum audio duration: 5 minutes
 - For longer audio, use async model (`qwen3-asr-flash-filetrans`)
+- Dependencies are managed automatically by `uv` via PEP 723 inline metadata
 
 ### 🎯 Usage Tips
 

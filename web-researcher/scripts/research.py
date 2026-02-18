@@ -1,4 +1,12 @@
-#!/usr/bin/env python3
+#!/usr/bin/env -S uv run --script
+# /// script
+# requires-python = ">=3.9"
+# dependencies = [
+#   "dashscope",
+# ]
+# [tool.uv]
+# exclude-newer = "2025-02-18T00:00:00Z"
+# ///
 """
 Qwen Web Researcher
 
@@ -6,7 +14,8 @@ Performs agentic web research using DashScope Qwen model with built-in search.
 Uses streaming but returns only the final answer (not the reasoning process).
 
 Usage:
-    python3 research.py "Your research question"
+    uv run research.py "Your research question"
+    ./research.py "Your research question"  (if executable)
 
 Environment:
     DASHSCOPE_API_KEY - Required. Your DashScope API key.
@@ -14,14 +23,15 @@ Environment:
 
 import sys
 import os
+import dashscope
 
 
 def main():
     # Get query from command line arguments
     if len(sys.argv) < 2:
-        print("Usage: python3 research.py '<your research question>'", file=sys.stderr)
+        print("Usage: uv run research.py '<your research question>'", file=sys.stderr)
         print("\nExample:", file=sys.stderr)
-        print('  python3 research.py "Latest AI developments 2025"', file=sys.stderr)
+        print('  uv run research.py "Latest AI developments 2025"', file=sys.stderr)
         sys.exit(1)
     
     query = sys.argv[1]
@@ -32,13 +42,6 @@ def main():
         print("Error: DASHSCOPE_API_KEY environment variable not set.", file=sys.stderr)
         print("Please set your DashScope API key:", file=sys.stderr)
         print("  export DASHSCOPE_API_KEY='your-api-key-here'", file=sys.stderr)
-        sys.exit(1)
-    
-    try:
-        import dashscope
-    except ImportError:
-        print("Error: dashscope library not installed.", file=sys.stderr)
-        print("Install with: pip install dashscope", file=sys.stderr)
         sys.exit(1)
     
     # Call DashScope API with streaming

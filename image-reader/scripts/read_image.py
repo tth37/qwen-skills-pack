@@ -1,4 +1,12 @@
-#!/usr/bin/env python3
+#!/usr/bin/env -S uv run --script
+# /// script
+# requires-python = ">=3.9"
+# dependencies = [
+#   "dashscope",
+# ]
+# [tool.uv]
+# exclude-newer = "2025-02-18T00:00:00Z"
+# ///
 """
 Qwen Image Reader
 
@@ -6,12 +14,13 @@ Analyze images using DashScope Qwen multimodal API.
 Supports extracting text, solving problems, describing scenes, etc.
 
 Usage:
-    python3 read_image.py <image_path> ["custom prompt"]
+    uv run read_image.py <image_path> ["custom prompt"]
+    ./read_image.py <image_path> ["custom prompt"]  (if executable)
 
 Examples:
-    python3 read_image.py math.jpg "Solve this math problem"
-    python3 read_image.py document.png "Extract all text"
-    python3 read_image.py photo.jpg
+    uv run read_image.py math.jpg "Solve this math problem"
+    uv run read_image.py document.png "Extract all text"
+    uv run read_image.py photo.jpg
 
 Environment:
     DASHSCOPE_API_KEY - Required. Your DashScope API key.
@@ -22,6 +31,9 @@ import sys
 import os
 import base64
 from pathlib import Path
+import dashscope
+from dashscope import MultiModalConversation
+from http import HTTPStatus
 
 
 def image_to_base64(image_path):
@@ -61,10 +73,6 @@ def analyze_image(image_path, prompt, model="qwen3-vl-plus"):
     Returns:
         Model's response text
     """
-    import dashscope
-    from dashscope import MultiModalConversation
-    from http import HTTPStatus
-    
     # Convert image to base64
     image_base64 = image_to_base64(image_path)
     
@@ -101,11 +109,11 @@ def analyze_image(image_path, prompt, model="qwen3-vl-plus"):
 def main():
     # Check command line arguments
     if len(sys.argv) < 2:
-        print("Usage: python3 read_image.py <image_path> [\"custom prompt\"]", file=sys.stderr)
+        print("Usage: uv run read_image.py <image_path> [\"custom prompt\"]", file=sys.stderr)
         print("\nExamples:", file=sys.stderr)
-        print('  python3 read_image.py math.jpg "Solve this math problem"', file=sys.stderr)
-        print('  python3 read_image.py document.png "Extract all text"', file=sys.stderr)
-        print('  python3 read_image.py photo.jpg', file=sys.stderr)
+        print('  uv run read_image.py math.jpg "Solve this math problem"', file=sys.stderr)
+        print('  uv run read_image.py document.png "Extract all text"', file=sys.stderr)
+        print('  uv run read_image.py photo.jpg', file=sys.stderr)
         sys.exit(1)
     
     image_path = sys.argv[1]
@@ -122,14 +130,6 @@ def main():
         print("Error: DASHSCOPE_API_KEY environment variable not set.", file=sys.stderr)
         print("Please set your DashScope API key:", file=sys.stderr)
         print("  export DASHSCOPE_API_KEY='your-api-key-here'", file=sys.stderr)
-        sys.exit(1)
-    
-    # Check for dashscope library
-    try:
-        import dashscope
-    except ImportError:
-        print("Error: dashscope library not installed.", file=sys.stderr)
-        print("Install with: pip install dashscope", file=sys.stderr)
         sys.exit(1)
     
     # Get model from environment or use default
