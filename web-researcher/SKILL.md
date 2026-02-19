@@ -14,14 +14,13 @@ Perform agentic web research by combining web search with Qwen model reasoning.
 Run the research script with your query:
 
 ```bash
-uv run scripts/research.py "Your research question here"
+./scripts/research "Your research question here"
 ```
 
-Or make it executable:
+Or use uv directly:
 
 ```bash
-chmod +x scripts/research.py
-./scripts/research.py "Your research question here"
+uv run scripts/research.py "Your research question here"
 ```
 
 ## Prerequisites

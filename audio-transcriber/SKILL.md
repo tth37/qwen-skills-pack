@@ -14,13 +14,13 @@ Transcribe audio files to text using Qwen's speech recognition capabilities via 
 Transcribe an audio file:
 
 ```bash
-uv run scripts/transcribe.py /path/to/audio.mp3
+./scripts/transcribe /path/to/audio.mp3
 ```
 
-With custom language hint:
+Or use uv directly:
 
 ```bash
-uv run scripts/transcribe.py /path/to/audio.mp3 --language zh
+uv run scripts/transcribe.py /path/to/audio.mp3
 ```
 
 Or make it executable:
