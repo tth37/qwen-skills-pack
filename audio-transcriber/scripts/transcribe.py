@@ -3,6 +3,7 @@
 # requires-python = ">=3.9"
 # dependencies = [
 #   "dashscope",
+#   "urllib3<2",
 # ]
 # [tool.uv]
 # exclude-newer = "2025-02-18T00:00:00Z"
