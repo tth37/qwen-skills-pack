@@ -1,4 +1,3 @@
-#!/usr/bin/env -S uv run --script
 # /// script
 # requires-python = ">=3.9"
 # dependencies = [
@@ -15,8 +14,7 @@ Analyze images using DashScope Qwen multimodal API.
 Supports extracting text, solving problems, describing scenes, etc.
 
 Usage:
-    uv run read_image.py <image_path> ["custom prompt"]
-    ./read_image.py <image_path> ["custom prompt"]  (if executable)
+    uv run scripts/read_image.py <image_path> ["custom prompt"]
 
 Examples:
     uv run read_image.py math.jpg "Solve this math problem"

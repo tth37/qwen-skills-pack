@@ -1,5 +1,0 @@
-#!/bin/bash
-# Wrapper for read_image.py to ensure uv is used
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-cd "$SCRIPT_DIR/.."
-exec uv run scripts/read_image.py "$@"

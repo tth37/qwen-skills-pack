@@ -11,23 +11,10 @@ Transcribe audio files to text using Qwen's speech recognition capabilities via 
 
 ## Quick Start
 
-Transcribe an audio file:
-
-```bash
-./scripts/transcribe /path/to/audio.mp3
-```
-
-Or use uv directly:
+Transcribe an audio file with `uv`:
 
 ```bash
 uv run scripts/transcribe.py /path/to/audio.mp3
-```
-
-Or make it executable:
-
-```bash
-chmod +x scripts/transcribe.py
-./scripts/transcribe.py /path/to/audio.mp3 --language zh
 ```
 
 ## Prerequisites
@@ -74,7 +61,7 @@ Requires `DASHSCOPE_API_KEY` environment variable. Set it in your shell or OpenC
 ## Script Reference
 
 - `scripts/transcribe.py` - Main transcription script
-  - Usage: `uv run scripts/transcribe.py <audio_path> [--language <lang>]` or `./scripts/transcribe.py <audio_path> [--language <lang>]`
+  - Usage: `uv run scripts/transcribe.py <audio_path> [--language <lang>]`
   - Returns: Transcribed text
   - Lock file: `scripts/transcribe.py.lock` (committed for reproducibility)
 

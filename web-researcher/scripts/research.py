@@ -1,4 +1,3 @@
-#!/usr/bin/env -S uv run --script
 # /// script
 # requires-python = ">=3.9"
 # dependencies = [
@@ -15,8 +14,7 @@ Performs agentic web research using DashScope Qwen model with built-in search.
 Uses streaming but returns only the final answer (not the reasoning process).
 
 Usage:
-    uv run research.py "Your research question"
-    ./research.py "Your research question"  (if executable)
+    uv run scripts/research.py "Your research question"
 
 Environment:
     DASHSCOPE_API_KEY - Required. Your DashScope API key.

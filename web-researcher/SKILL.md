@@ -11,13 +11,7 @@ Perform agentic web research by combining web search with Qwen model reasoning.
 
 ## Quick Start
 
-Run the research script with your query:
-
-```bash
-./scripts/research "Your research question here"
-```
-
-Or use uv directly:
+Run the research script with `uv`:
 
 ```bash
 uv run scripts/research.py "Your research question here"
@@ -67,7 +61,7 @@ Requires `DASHSCOPE_API_KEY` environment variable. Set it in your shell or OpenC
 ## Script Reference
 
 - `scripts/research.py` - Main research script
-  - Usage: `uv run scripts/research.py "<query>"` or `./scripts/research.py "<query>"`
+  - Usage: `uv run scripts/research.py "<query>"`
   - Returns: Synthesized answer with citations
   - Lock file: `scripts/research.py.lock` (committed for reproducibility)
 

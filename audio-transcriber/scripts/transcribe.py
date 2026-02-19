@@ -1,4 +1,3 @@
-#!/usr/bin/env -S uv run --script
 # /// script
 # requires-python = ">=3.9"
 # dependencies = [
@@ -14,8 +13,7 @@ Qwen Audio Transcriber
 Transcribe audio files to text using DashScope Qwen ASR API.
 
 Usage:
-    uv run transcribe.py <audio_path> [--language <lang>]
-    ./transcribe.py <audio_path> [--language <lang>]  (if executable)
+    uv run scripts/transcribe.py <audio_path> [--language <lang>]
 
 Examples:
     uv run transcribe.py recording.mp3

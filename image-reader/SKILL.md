@@ -11,13 +11,7 @@ Analyze images using Qwen's multimodal capabilities via DashScope API. Extract t
 
 ## Quick Start
 
-Read an image with a custom prompt:
-
-```bash
-./scripts/read-image /path/to/image.jpg "Extract and solve the math problem in this image"
-```
-
-Or use uv directly:
+Read an image with `uv`:
 
 ```bash
 uv run scripts/read_image.py /path/to/image.jpg "Extract and solve the math problem in this image"
@@ -67,7 +61,7 @@ Requires `DASHSCOPE_API_KEY` environment variable. Set it in your shell or OpenC
 ## Script Reference
 
 - `scripts/read_image.py` - Main image analysis script
-  - Usage: `uv run scripts/read_image.py <image_path> ["custom prompt"]` or `./scripts/read_image.py <image_path> ["custom prompt"]`
+  - Usage: `uv run scripts/read_image.py <image_path> ["custom prompt"]`
   - Returns: Model's analysis of the image
   - Lock file: `scripts/read_image.py.lock` (committed for reproducibility)
 
